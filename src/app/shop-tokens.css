@@ -1,0 +1,61 @@
+/* ------------------------------------------------------------------
+ * Xyvot Shop design tokens
+ * Single source of truth for shop colors, spacing, type and radii.
+ * New shop components must use these variables — no hardcoded hex or
+ * magic numbers in component styles.
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* Brand accents (match existing shop palette) */
+  --shop-accent: #ea580c;          /* orange-600 — primary actions, highlights */
+  --shop-accent-dark: #c2410c;     /* orange-700 — hover states */
+  --shop-accent-soft: #fff7ed;     /* orange-50 — tinted backgrounds */
+
+  /* Neutrals */
+  --shop-ink: #0f172a;             /* slate-900 — headings, primary text */
+  --shop-body: #334155;            /* slate-700 — body text */
+  --shop-muted: #64748b;           /* slate-500 — secondary text */
+  --shop-faint: #94a3b8;          /* slate-400 — placeholder text */
+  --shop-line: #e2e8f0;            /* slate-200 — borders */
+  --shop-line-soft: #f1f5f9;       /* slate-100 — subtle dividers */
+  --shop-surface: #ffffff;
+  --shop-surface-tint: #f8fafc;    /* slate-50 — card backgrounds */
+  --shop-category-bg: #f6fbd3;     /* lime tint — category band */
+
+  /* Feedback */
+  --shop-success: #15803d;         /* green-700 */
+  --shop-success-bg: #f0fdf4;      /* green-50 */
+
+  /* Spacing scale (4px base) */
+  --shop-space-1: 4px;
+  --shop-space-2: 8px;
+  --shop-space-3: 12px;
+  --shop-space-4: 16px;
+  --shop-space-5: 20px;
+  --shop-space-6: 24px;
+  --shop-space-8: 32px;
+  --shop-space-10: 40px;
+  --shop-space-12: 48px;
+
+  /* Type scale */
+  --shop-text-xs: 11px;
+  --shop-text-sm: 13px;
+  --shop-text-base: 15px;
+  --shop-text-lg: 18px;
+  --shop-text-xl: 22px;
+  --shop-text-2xl: 28px;
+
+  /* Radii */
+  --shop-radius-sm: 10px;
+  --shop-radius-md: 16px;
+  --shop-radius-lg: 24px;
+  --shop-radius-pill: 999px;
+
+  /* Shop card sizing */
+  --shop-card-width: 220px;
+  --shop-card-logo: 56px;
+
+  /* Shadows */
+  --shop-shadow-card: 0 1px 2px rgb(15 23 42 / 0.06), 0 4px 12px rgb(15 23 42 / 0.06);
+  --shop-shadow-card-hover: 0 2px 4px rgb(15 23 42 / 0.08), 0 8px 20px rgb(15 23 42 / 0.1);
+}
