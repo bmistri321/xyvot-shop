@@ -36,7 +36,7 @@ export default function AccountPage() {
     if (!client) return;
     const { data } = await client
       .from("sales_orders")
-      .select("id, created_at, status, total_amount, items")
+      .select("id, order_number, created_at, status, delivery_status, total_amount, items")
       .eq("customer_phone", phoneNumber)
       .order("created_at", { ascending: false })
       .limit(20);
@@ -121,6 +121,19 @@ export default function AccountPage() {
           </button>
         </div>
 
+        <div className="mb-8">
+          <a
+            href="/account/addresses"
+            className="flex items-center justify-between p-5 bg-slate-50 rounded-3xl hover:bg-slate-100 transition-colors"
+          >
+            <div>
+              <p className="font-bold">📍 Saved addresses</p>
+              <p className="text-sm text-slate-500 mt-1">Manage your delivery addresses</p>
+            </div>
+            <span className="text-slate-400 text-xl" aria-hidden="true">→</span>
+          </a>
+        </div>
+
         <h2 className="text-xl font-bold mb-4">Order history</h2>
         {orders.length === 0 ? (
           <div className="text-center py-12 bg-slate-50 rounded-3xl">
@@ -132,30 +145,36 @@ export default function AccountPage() {
         ) : (
           <ul className="space-y-4">
             {orders.map((o) => (
-              <li
-                key={o.id}
-                className="bg-white border border-slate-200 rounded-3xl p-5"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="font-bold">
-                      Order #{String(o.id).slice(0, 8)}
-                    </p>
-                    <p className="text-sm text-slate-500 mt-1">
-                      {new Date(o.created_at).toLocaleDateString("en-IN", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </p>
+              <li key={o.id}>
+                <a
+                  href={`/account/orders/${o.id}`}
+                  className="block bg-white border border-slate-200 rounded-3xl p-5 hover:border-orange-500 hover:shadow-md transition-all"
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-bold">
+                        Order #{o.order_number || String(o.id).slice(0, 8)}
+                      </p>
+                      <p className="text-sm text-slate-500 mt-1">
+                        {new Date(o.created_at).toLocaleDateString("en-IN", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <span className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-slate-100 text-xs font-bold capitalize">
+                        {(o.delivery_status || o.status)?.replace(/_/g, " ")}
+                      </span>
+                      <span className="text-slate-400" aria-hidden="true">→</span>
+                    </span>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-slate-100 text-xs font-bold capitalize">
-                    {o.status?.replace(/_/g, " ")}
-                  </span>
-                </div>
-                {o.total_amount && (
-                  <p className="mt-3 font-black">{formatPrice(o.total_amount)}</p>
-                )}
+                  {o.total_amount && (
+                    <p className="mt-3 font-black">{formatPrice(o.total_amount)}</p>
+                  )}
+                  <p className="mt-2 text-sm font-bold text-orange-700">Track order →</p>
+                </a>
               </li>
             ))}
           </ul>

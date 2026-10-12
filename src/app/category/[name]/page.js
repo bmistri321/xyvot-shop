@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getProducts } from "@/lib/supabase";
 import ProductCard from "@/components/ProductCard";
+import SubcategoryPills from "@/components/SubcategoryPills";
 
 export async function generateMetadata({ params }) {
   const { name } = await params;
@@ -32,6 +33,7 @@ export default async function CategoryPage({ params }) {
       </nav>
 
       <h1 className="text-3xl font-black">{category}</h1>
+      <SubcategoryPills parent={category} />
 
       {products.length === 0 ? (
         <div className="mt-8 text-center py-16">

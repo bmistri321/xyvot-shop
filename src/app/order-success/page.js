@@ -22,6 +22,14 @@ export default async function OrderSuccessPage({ searchParams }) {
         </p>
       )}
       <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        {order && (
+          <Link
+            href={`/account/orders/${order}`}
+            className="px-8 py-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700"
+          >
+            Track order
+          </Link>
+        )}
         <Link
           href="/"
           className="px-8 py-3 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800"
@@ -32,7 +40,7 @@ export default async function OrderSuccessPage({ searchParams }) {
           href="/account"
           className="px-8 py-3 rounded-full border-2 border-slate-200 font-bold hover:border-slate-900"
         >
-          Track order
+          My orders
         </Link>
       </div>
     </main>
