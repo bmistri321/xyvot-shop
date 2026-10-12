@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getProducts } from "@/lib/supabase";
 import ProductCard from "@/components/ProductCard";
 import CategoryGrid from "@/components/CategoryGrid";
+import ShopsNearYou from "@/components/shop/ShopsNearYou";
 
 export default async function Home() {
   const products = await getProducts({ limit: 24 });
@@ -21,6 +22,9 @@ export default async function Home() {
           <CategoryGrid />
         </div>
       </section>
+
+      {/* Shops near you — location-aware business discovery */}
+      <ShopsNearYou />
 
       {/* Products */}
       <section aria-label="Products" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">

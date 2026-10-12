@@ -22,7 +22,7 @@ export const PRODUCT_FIELDS =
   "id, organization_id, title, name, description, category, price, selling_price, mrp, image_url, image, stock, stock_quantity, rating, badge, has_variants, variants, created_at";
 
 // Fetch active products for the marketplace
-export async function getProducts({ limit = 48, category = null, search = null } = {}) {
+export async function getProducts({ limit = 48, category = null, search = null, organizationId = null } = {}) {
   const client = getSupabase();
   if (!client) return [];
   let query = client
@@ -36,6 +36,9 @@ export async function getProducts({ limit = 48, category = null, search = null }
   }
   if (search) {
     query = query.or(`title.ilike.%${search}%,name.ilike.%${search}%`);
+  }
+  if (organizationId) {
+    query = query.eq("organization_id", organizationId);
   }
 
   const { data, error } = await query;
@@ -74,6 +77,38 @@ export async function getCategories() {
 
   if (error || !data) return [];
   return [...new Set(data.map((p) => p.category).filter(Boolean))].sort();
+}
+
+// Fetch a single business by ID for the shop profile page.
+// Tolerates databases missing the newer columns (logo_url, address, city,
+// lat/lng) — falls back to the schema-confirmed minimal set.
+export async function getShop(id) {
+  const client = getSupabase();
+  if (!client || !id) return null;
+
+  const full = await client
+    .from("organizations")
+    .select("id, name, slug, logo_url, address, city, status, is_archived, owner_phone, owner_email")
+    .eq("id", id)
+    .eq("is_archived", false)
+    .maybeSingle();
+
+  let shop = null;
+  if (full.error) {
+    const minimal = await client
+      .from("organizations")
+      .select("id, name, slug, status, is_archived, owner_phone")
+      .eq("id", id)
+      .eq("is_archived", false)
+      .maybeSingle();
+    if (minimal.error || !minimal.data) return null;
+    shop = minimal.data;
+  } else {
+    shop = full.data;
+  }
+
+  if (!shop || (shop.status && shop.status !== "active")) return null;
+  return shop;
 }
 
 // Normalize price display
