@@ -158,8 +158,8 @@ export default function CategoryGrid() {
         <span
           className={`w-full aspect-[4/5] rounded-2xl bg-white border-2 transition-all flex items-center justify-center ${
             isSelected
-              ? "border-purple-600 shadow-lg shadow-purple-600/20"
-              : "border-lime-400 group-hover:border-lime-500 group-hover:shadow-md"
+              ? "border-purple-600"
+              : "border-lime-400 group-hover:border-lime-500"
           }`}
         >
           <span
