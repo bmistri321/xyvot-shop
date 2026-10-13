@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "./CartContext";
 import CartDrawer from "./CartDrawer";
 
@@ -10,9 +10,25 @@ export default function Header() {
   const [cartOpen, setCartOpen] = useState(false);
   const [search, setSearch] = useState("");
 
+  // The mobile tab bar dispatches this to open the cart drawer.
+  useEffect(() => {
+    const open = () => setCartOpen(true);
+    window.addEventListener("xyvot:open-cart", open);
+    return () => window.removeEventListener("xyvot:open-cart", open);
+  }, []);
+
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+      {/* Mobile app bar — slim: the bottom tab bar covers search/cart/account */}
+      <header className="sm:hidden sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+        <div className="px-4 h-14 flex items-center">
+          <Link href="/" className="text-xl font-black tracking-tight" aria-label="Xyvot shop home">
+            xyvot<span className="text-orange-600">.</span>
+          </Link>
+        </div>
+      </header>
+
+      <header className="hidden sm:block sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
           <Link href="/" className="text-2xl font-black tracking-tight shrink-0" aria-label="Xyvot shop home">
             xyvot<span className="text-orange-600">.</span>
@@ -63,18 +79,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile search */}
-        <div className="sm:hidden px-4 pb-3">
-          <form action="/search" method="get" role="search">
-            <input
-              type="search"
-              name="q"
-              placeholder="Search products…"
-              aria-label="Search products"
-              className="w-full px-4 py-2.5 rounded-full bg-slate-100 border-0 text-sm focus:ring-2 focus:ring-orange-500"
-            />
-          </form>
-        </div>
       </header>
 
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />

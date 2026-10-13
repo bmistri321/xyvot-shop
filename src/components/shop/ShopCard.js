@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DistanceBadge from "./DistanceBadge";
 import { StoreIcon } from "./ShopIcons";
+import { ArrowRight } from "lucide-react";
 
 // Card for a single business in the "Shops Near You" row.
 // Fixed width so it works in a horizontal scroll container.
@@ -83,7 +84,7 @@ export default function ShopCard({ shop }) {
           className="mt-3 inline-flex items-center font-bold group-hover:underline"
           style={{ fontSize: "var(--shop-text-sm)", color: "var(--shop-accent-dark)" }}
         >
-          Visit shop →
+          <span className="inline-flex items-center gap-1">Visit shop <ArrowRight className="w-4 h-4" aria-hidden="true" /></span>
         </span>
       </div>
     </Link>

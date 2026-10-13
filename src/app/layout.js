@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/CartContext";
 import Header from "@/components/Header";
+import MobileTabBar from "@/components/MobileTabBar";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -11,6 +13,13 @@ const inter = Inter({
 
 const SITE_URL = "https://shop.xyvot.com";
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ea580c",
+};
+
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -19,6 +28,29 @@ export const metadata = {
   },
   description:
     "Shop fresh groceries, vegetables, dairy, and daily essentials online. 15-minute express delivery from neighbourhood shops.",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Xyvot",
+    statusBarStyle: "default",
+    startupImage: [
+      { url: "/splash/splash-2048x2732.png", media: "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+      { url: "/splash/splash-1668x2424.png", media: "(device-width: 834px) and (device-height: 1212px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+      { url: "/splash/splash-1536x2048.png", media: "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+      { url: "/splash/splash-1242x2688.png", media: "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
+      { url: "/splash/splash-1125x2436.png", media: "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" },
+      { url: "/splash/splash-750x1334.png", media: "(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+      { url: "/splash/splash-640x1136.png", media: "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" },
+    ],
+  },
+  formatDetection: { telephone: false },
   alternates: { canonical: SITE_URL },
   openGraph: {
     type: "website",
@@ -35,6 +67,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased bg-white text-slate-900 min-h-screen flex flex-col">
+        <ServiceWorkerRegister />
         <CartProvider>
           <Header />
           <div className="flex-1">{children}</div>
@@ -72,6 +105,13 @@ export default function RootLayout({ children }) {
               </p>
             </div>
           </footer>
+          {/* Spacer so the mobile tab bar never covers footer content */}
+          <div
+            aria-hidden="true"
+            className="sm:hidden shrink-0"
+            style={{ height: "calc(4rem + env(safe-area-inset-bottom))" }}
+          />
+          <MobileTabBar />
         </CartProvider>
       </body>
     </html>

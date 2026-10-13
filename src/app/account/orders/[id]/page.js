@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { formatPrice } from "@/lib/supabase";
 import { getSessionPhone } from "@/lib/session";
+import { Check, RefreshCw } from "lucide-react";
 
 // Canonical tracking steps — the API timeline maps onto these.
 const STEPS = [
@@ -140,7 +141,9 @@ export default function TrackOrderPage() {
           disabled={refreshing}
           className="px-4 py-2 rounded-full border-2 border-slate-200 text-sm font-bold hover:border-slate-900 disabled:opacity-50"
         >
-          {refreshing ? "Refreshing…" : "↻ Refresh"}
+          {refreshing ? "Refreshing…" : (
+            <span className="inline-flex items-center gap-1.5"><RefreshCw className="w-4 h-4" aria-hidden="true" /> Refresh</span>
+          )}
         </button>
       </div>
       <p className="text-slate-500 mb-8">
@@ -187,7 +190,7 @@ export default function TrackOrderPage() {
                         : "bg-slate-100 text-slate-400"
                   }`}
                 >
-                  {done ? "✓" : i + 1}
+                  {done ? <Check className="w-4 h-4" aria-hidden="true" /> : i + 1}
                 </span>
                 <div className="pt-1.5">
                   <p className={`font-bold ${active ? "text-slate-900" : done ? "text-slate-700" : "text-slate-400"}`}>

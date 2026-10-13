@@ -8,6 +8,7 @@ import { formatPrice } from "@/lib/supabase";
 import { getSessionPhone } from "@/lib/session";
 import AddressForm, { formatAddress } from "@/components/AddressForm";
 import RazorpayPay from "@/components/RazorpayPay";
+import { ArrowLeft, ArrowRight, Banknote, Check, CreditCard } from "lucide-react";
 
 const STEPS = ["Address", "Payment", "Review"];
 
@@ -212,7 +213,7 @@ export default function CheckoutPage() {
                   i < step ? "bg-orange-600 text-white" : i === step ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-400"
                 }`}
               >
-                {i < step ? "✓" : i + 1}
+                {i < step ? <Check className="w-4 h-4" aria-hidden="true" /> : i + 1}
               </span>
               <span className={`text-sm font-bold ${i === step ? "text-slate-900" : "text-slate-400"}`}>{label}</span>
             </div>
@@ -269,7 +270,7 @@ export default function CheckoutPage() {
                     </ul>
                   )}
                   <div className="flex gap-3 text-sm mb-4">
-                    <Link href="/account/addresses" className="font-bold text-orange-700 hover:text-orange-800">Manage addresses →</Link>
+                    <Link href="/account/addresses" className="inline-flex items-center gap-1 font-bold text-orange-700 hover:text-orange-800">Manage addresses <ArrowRight className="w-4 h-4" aria-hidden="true" /></Link>
                   </div>
                 </>
               )}
@@ -313,7 +314,7 @@ export default function CheckoutPage() {
                     paymentMethod === "razorpay" ? "border-orange-600 bg-orange-50/50" : "border-slate-200 hover:border-slate-400"
                   }`}
                 >
-                  <p className="font-bold">💳 Pay online</p>
+                  <p className="font-bold inline-flex items-center gap-2"><CreditCard className="w-5 h-5" aria-hidden="true" /> Pay online</p>
                   <p className="mt-1 text-sm text-slate-500">UPI, cards, netbanking via Razorpay</p>
                 </button>
                 <button
@@ -324,7 +325,7 @@ export default function CheckoutPage() {
                     paymentMethod === "cod" ? "border-orange-600 bg-orange-50/50" : "border-slate-200 hover:border-slate-400"
                   }`}
                 >
-                  <p className="font-bold">💵 Cash on Delivery</p>
+                  <p className="font-bold inline-flex items-center gap-2"><Banknote className="w-5 h-5" aria-hidden="true" /> Cash on Delivery</p>
                   <p className="mt-1 text-sm text-slate-500">Pay when your order arrives</p>
                 </button>
               </div>
@@ -360,7 +361,11 @@ export default function CheckoutPage() {
                   <button type="button" onClick={() => setStep(1)} className="text-sm font-bold text-orange-700">Change</button>
                 </div>
                 <p className="mt-2 text-sm text-slate-600">
-                  {paymentMethod === "razorpay" ? "💳 Pay online via Razorpay" : "💵 Cash on Delivery"}
+                  {paymentMethod === "razorpay" ? (
+                    <span className="inline-flex items-center gap-1.5"><CreditCard className="w-4 h-4" aria-hidden="true" /> Pay online via Razorpay</span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1.5"><Banknote className="w-4 h-4" aria-hidden="true" /> Cash on Delivery</span>
+                  )}
                 </p>
               </div>
 
@@ -419,7 +424,7 @@ export default function CheckoutPage() {
                 onClick={back}
                 className="px-6 py-3.5 rounded-full border-2 border-slate-200 font-bold hover:border-slate-900"
               >
-                ← Back
+                <span className="inline-flex items-center gap-1.5"><ArrowLeft className="w-4 h-4" aria-hidden="true" /> Back</span>
               </button>
             )}
             {step < 2 && (
@@ -429,7 +434,9 @@ export default function CheckoutPage() {
                 disabled={placing}
                 className="flex-1 py-3.5 rounded-full bg-slate-900 text-white font-bold hover:bg-slate-800 disabled:opacity-50"
               >
-                {placing ? "Please wait…" : "Continue →"}
+                {placing ? "Please wait…" : (
+                  <span className="inline-flex items-center gap-1.5">Continue <ArrowRight className="w-4 h-4" aria-hidden="true" /></span>
+                )}
               </button>
             )}
           </div>

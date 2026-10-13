@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CircleCheck } from "lucide-react";
 
 export const metadata = {
   title: "Order placed!",
@@ -10,7 +11,7 @@ export default async function OrderSuccessPage({ searchParams }) {
 
   return (
     <main className="max-w-2xl mx-auto px-4 py-20 text-center">
-      <p className="text-6xl mb-6" aria-hidden="true">✅</p>
+      <CircleCheck className="w-16 h-16 mx-auto mb-6 text-emerald-600" aria-hidden="true" />
       <h1 className="text-4xl font-black">Order placed!</h1>
       <p className="mt-4 text-lg text-slate-600">
         Thank you for shopping with Xyvot. Your order is being prepared and

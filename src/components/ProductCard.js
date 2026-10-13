@@ -59,7 +59,7 @@ export default function ProductCard({ product }) {
         </div>
         <button
           onClick={() => addItem(product)}
-          className="mt-3 w-full py-2.5 rounded-full bg-slate-900 text-white text-sm font-bold hover:bg-orange-600 transition-colors"
+          className="mt-3 w-full min-h-[44px] py-2.5 rounded-full bg-slate-900 text-white text-sm font-bold hover:bg-orange-600 transition-colors"
           aria-label={`Add ${title} to cart`}
         >
           Add to cart

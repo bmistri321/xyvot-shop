@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getShop, getProducts } from "@/lib/supabase";
 import ProductCard from "@/components/ProductCard";
 import { PinIcon, StoreIcon } from "@/components/shop/ShopIcons";
+import { Store } from "lucide-react";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -117,7 +118,7 @@ export default async function ShopPage({ params }) {
 
         {products.length === 0 ? (
           <div className="text-center" style={{ padding: "var(--shop-space-12) 0" }}>
-            <p className="text-5xl mb-4" aria-hidden="true">🏪</p>
+            <Store className="w-12 h-12 mx-auto mb-4 text-slate-300" aria-hidden="true" />
             <p className="font-bold" style={{ fontSize: "var(--shop-text-lg)", color: "var(--shop-ink)" }}>
               No products yet
             </p>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Check } from "lucide-react";
 import { useCart } from "@/components/CartContext";
 
 export default function AddToCartButton({ product, inStock }) {
@@ -58,7 +59,13 @@ export default function AddToCartButton({ product, inStock }) {
             : "bg-orange-600 text-white hover:bg-orange-700"
         }`}
       >
-        {added ? "✓ Added to cart" : "Add to cart"}
+        {added ? (
+          <span className="inline-flex items-center justify-center gap-2">
+            <Check className="w-5 h-5" aria-hidden="true" /> Added to cart
+          </span>
+        ) : (
+          "Add to cart"
+        )}
       </button>
     </div>
   );

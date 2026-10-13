@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 
 const CATEGORIES = [
@@ -83,7 +84,7 @@ function ExpansionPanel({ category, onClose }) {
             href={`/category/${encodeURIComponent(category)}`}
             className="text-sm sm:text-base font-bold text-white border-b-2 border-white/60 hover:border-white pb-0.5 transition-colors"
           >
-            View all →
+            <span className="inline-flex items-center gap-1">View all <ArrowRight className="w-4 h-4" aria-hidden="true" /></span>
           </a>
           <button
             onClick={onClose}

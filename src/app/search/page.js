@@ -1,3 +1,4 @@
+import { SearchX } from "lucide-react";
 import { getProducts } from "@/lib/supabase";
 import ProductCard from "@/components/ProductCard";
 
@@ -28,14 +29,24 @@ export default async function SearchPage({ searchParams }) {
       </h1>
 
       {!query ? (
-        <div className="mt-8 text-center py-16">
-          <p className="text-slate-500">
-            Type in the search bar above to find groceries and essentials.
+        <div className="mt-6">
+          <form action="/search" method="get" role="search" className="sm:hidden">
+            <input
+              type="search"
+              name="q"
+              placeholder="Search for groceries, vegetables, snacks…"
+              aria-label="Search products"
+              autoFocus
+              className="w-full px-5 py-3.5 rounded-full bg-slate-100 border-0 text-base focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+            />
+          </form>
+          <p className="mt-6 text-center text-slate-500">
+            Type above to find groceries and essentials.
           </p>
         </div>
       ) : products.length === 0 ? (
         <div className="mt-8 text-center py-16">
-          <p className="text-5xl mb-4" aria-hidden="true">🔍</p>
+          <SearchX className="w-12 h-12 mx-auto mb-4 text-slate-300" aria-hidden="true" />
           <p className="text-xl font-bold">No results for &ldquo;{query}&rdquo;</p>
           <p className="mt-2 text-slate-500">
             Try a different spelling or browse categories instead.

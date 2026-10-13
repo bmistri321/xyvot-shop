@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "./CartContext";
+import { ShoppingCart } from "lucide-react";
 import { formatPrice } from "@/lib/supabase";
 
 export default function CartDrawer({ open, onClose }) {
@@ -34,7 +35,7 @@ export default function CartDrawer({ open, onClose }) {
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center">
-              <p className="text-4xl mb-4" aria-hidden="true">🛒</p>
+              <ShoppingCart className="w-12 h-12 mb-4 text-slate-300" aria-hidden="true" />
               <p className="font-bold text-slate-900">Your cart is empty</p>
               <p className="mt-2 text-sm text-slate-500">
                 Add some groceries to get started.
@@ -75,7 +76,7 @@ export default function CartDrawer({ open, onClose }) {
                       <div className="flex items-center border border-slate-200 rounded-full">
                         <button
                           onClick={() => updateQty(item.key, item.qty - 1)}
-                          className="w-8 h-8 flex items-center justify-center hover:bg-slate-100 rounded-l-full"
+                          className="w-11 h-11 flex items-center justify-center hover:bg-slate-100 rounded-l-full text-lg"
                           aria-label={`Decrease quantity of ${item.title}`}
                         >
                           −
@@ -85,7 +86,7 @@ export default function CartDrawer({ open, onClose }) {
                         </span>
                         <button
                           onClick={() => updateQty(item.key, item.qty + 1)}
-                          className="w-8 h-8 flex items-center justify-center hover:bg-slate-100 rounded-r-full"
+                          className="w-11 h-11 flex items-center justify-center hover:bg-slate-100 rounded-r-full text-lg"
                           aria-label={`Increase quantity of ${item.title}`}
                         >
                           +

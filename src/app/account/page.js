@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ArrowLeft, ArrowRight, ChevronRight, MapPin } from "lucide-react";
 import { getSupabase, formatPrice } from "@/lib/supabase";
 
 export default function AccountPage() {
@@ -127,10 +128,10 @@ export default function AccountPage() {
             className="flex items-center justify-between p-5 bg-slate-50 rounded-3xl hover:bg-slate-100 transition-colors"
           >
             <div>
-              <p className="font-bold">📍 Saved addresses</p>
+              <p className="font-bold inline-flex items-center gap-2"><MapPin className="w-4 h-4" aria-hidden="true" /> Saved addresses</p>
               <p className="text-sm text-slate-500 mt-1">Manage your delivery addresses</p>
             </div>
-            <span className="text-slate-400 text-xl" aria-hidden="true">→</span>
+            <ChevronRight className="w-5 h-5 text-slate-400" aria-hidden="true" />
           </a>
         </div>
 
@@ -167,13 +168,13 @@ export default function AccountPage() {
                       <span className="px-3 py-1 rounded-full bg-slate-100 text-xs font-bold capitalize">
                         {(o.delivery_status || o.status)?.replace(/_/g, " ")}
                       </span>
-                      <span className="text-slate-400" aria-hidden="true">→</span>
+                      <ChevronRight className="w-5 h-5 text-slate-400" aria-hidden="true" />
                     </span>
                   </div>
                   {o.total_amount && (
                     <p className="mt-3 font-black">{formatPrice(o.total_amount)}</p>
                   )}
-                  <p className="mt-2 text-sm font-bold text-orange-700">Track order →</p>
+                  <p className="mt-2 text-sm font-bold text-orange-700 inline-flex items-center gap-1">Track order <ArrowRight className="w-4 h-4" aria-hidden="true" /></p>
                 </a>
               </li>
             ))}
@@ -261,7 +262,7 @@ export default function AccountPage() {
             onClick={() => setStep("phone")}
             className="w-full text-sm text-slate-500 hover:text-slate-900"
           >
-            ← Use a different number
+            <span className="inline-flex items-center gap-1.5 justify-center"><ArrowLeft className="w-4 h-4" aria-hidden="true" /> Use a different number</span>
           </button>
         </form>
       )}

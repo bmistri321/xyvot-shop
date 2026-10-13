@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import AddressForm, { formatAddress } from "@/components/AddressForm";
 import { getSessionPhone } from "@/lib/session";
+import { MapPin } from "lucide-react";
 
 export default function AddressesPage() {
   const [phone, setPhone] = useState(null);
@@ -158,7 +159,7 @@ export default function AddressesPage() {
         </div>
       ) : addresses.length === 0 && !editing ? (
         <div className="text-center py-16 bg-slate-50 rounded-3xl">
-          <p className="text-4xl mb-4" aria-hidden="true">📍</p>
+          <MapPin className="w-10 h-10 mx-auto mb-4 text-slate-300" aria-hidden="true" />
           <p className="text-xl font-bold">No saved addresses</p>
           <p className="mt-2 text-slate-500">Add one to check out faster.</p>
         </div>
