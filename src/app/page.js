@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Store, Search, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, Store } from "lucide-react";
 import { getProducts, getCategories, discountPercent } from "@/lib/supabase";
 // DEMO DATA — remove before production.
 import { DEMO_PRODUCTS, DEMO_CATEGORIES } from "@/data/demoProducts";
@@ -61,17 +61,6 @@ export default async function Home() {
           />
         </section>
 
-        {/* Search */}
-        <Link
-          href="/search"
-          className="mt-4 flex items-center gap-2.5 bg-slate-100 rounded-full px-4 py-3 text-slate-500"
-          aria-label="Search products"
-        >
-          <Search className="w-5 h-5 shrink-0" aria-hidden="true" />
-          <span className="text-sm flex-1">Search vegetables, fruits and more</span>
-          <SlidersHorizontal className="w-5 h-5 shrink-0 text-slate-600" aria-hidden="true" />
-        </Link>
-
         {/* Categories */}
         <section aria-label="Categories" className="mt-6">
           <div className="flex items-center justify-between mb-3">
@@ -103,7 +92,7 @@ export default async function Home() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-3 gap-2.5">
               {products.map((p) => (
                 <GroceryProductCard key={p.id} product={p} />
               ))}
