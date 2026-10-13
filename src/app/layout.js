@@ -3,6 +3,7 @@ import "./globals.css";
 import { CartProvider } from "@/components/CartContext";
 import Header from "@/components/Header";
 import MobileTabBar from "@/components/MobileTabBar";
+import FloatingCartBar from "@/components/FloatingCartBar";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const inter = Inter({
@@ -113,6 +114,7 @@ export default function RootLayout({ children }) {
             style={{ height: "calc(4rem + env(safe-area-inset-bottom))" }}
           />
           <MobileTabBar />
+          <FloatingCartBar />
         </CartProvider>
       </body>
     </html>

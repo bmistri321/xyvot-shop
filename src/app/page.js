@@ -9,6 +9,7 @@ import GroceryProductCard from "@/components/GroceryProductCard";
 import CategoryGrid from "@/components/CategoryGrid";
 import CategoryCircleRow from "@/components/CategoryCircleRow";
 import GreetingHeader from "@/components/GreetingHeader";
+import DeliveryHeader from "@/components/DeliveryHeader";
 import ShopsNearYou from "@/components/shop/ShopsNearYou";
 
 export default async function Home() {
@@ -33,6 +34,7 @@ export default async function Home() {
         <div className="relative">
         {/* DEMO DATA — remove before production. */}
         {demoMode && <DemoBadge />}
+        <DeliveryHeader />
         <GreetingHeader />
 
         {/* Promo banner — fixed: text + image only, no gradient, no carousel */}
@@ -94,6 +96,38 @@ export default async function Home() {
             </div>
           )}
         </section>
+        {/* Popular Near You — horizontal product rail (Flipkart Quick pattern) */}
+        {products.length > 0 && (
+          <section aria-label="Popular near you" className="mt-7">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-[15px] font-extrabold text-slate-900">
+                Popular Near You
+              </h2>
+              <Link
+                href="/search"
+                className="text-[12px] font-semibold text-green-700"
+              >
+                See all
+              </Link>
+            </div>
+            <div
+              className="-mx-4 px-4 flex gap-2.5 overflow-x-auto pb-1 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              {[...products]
+                .reverse()
+                .slice(0, 8)
+                .map((p) => (
+                  <div
+                    key={`popular-${p.id}`}
+                    className="w-[38vw] max-w-[160px] shrink-0 snap-start"
+                  >
+                    <GroceryProductCard product={p} />
+                  </div>
+                ))}
+            </div>
+          </section>
+        )}
         </div>
       </div>
 
