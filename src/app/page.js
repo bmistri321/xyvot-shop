@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Store, Search, BadgePercent } from "lucide-react";
+import { ArrowRight, Store, Search, SlidersHorizontal } from "lucide-react";
 import { getProducts, getCategories, discountPercent } from "@/lib/supabase";
 // DEMO DATA — remove before production.
 import { DEMO_PRODUCTS, DEMO_CATEGORIES } from "@/data/demoProducts";
@@ -32,31 +32,26 @@ export default async function Home() {
         {/* Promo banner */}
         <section
           aria-label="Current offer"
-          className="mt-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-500 to-green-700 text-white p-5"
+          className="mt-4 relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#d9fae6] via-[#c8f2d9] to-[#a7e8c3] p-5"
         >
-          <div
-            className="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/10"
+          <div className="relative max-w-[60%]">
+            <p className="text-[20px] font-extrabold leading-snug text-[#0b3d2e]">
+              Enjoy The Special Offer Up To {maxOff > 0 ? `${maxOff}%` : "30%"}
+            </p>
+            <p className="mt-1.5 text-[11px] font-medium text-[#5b7a6c]">
+              Limited time offer
+            </p>
+            <div className="mt-2.5 flex items-center gap-1.5" aria-hidden="true">
+              <span className="w-[18px] h-[6px] rounded-full bg-green-600" />
+              <span className="w-[6px] h-[6px] rounded-full bg-[#bcdcc9]" />
+              <span className="w-[6px] h-[6px] rounded-full bg-[#bcdcc9]" />
+            </div>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80"
+            alt=""
             aria-hidden="true"
-          />
-          <div
-            className="absolute right-10 -bottom-10 w-24 h-24 rounded-full bg-white/10"
-            aria-hidden="true"
-          />
-          <p className="relative text-lg font-extrabold leading-snug max-w-[70%]">
-            Enjoy The Special Offer Up To {maxOff > 0 ? `${maxOff}%` : "30%"}
-          </p>
-          <p className="relative mt-1 text-[12px] text-green-100">
-            Fresh picks from shops near you
-          </p>
-          <Link
-            href="/search"
-            className="relative mt-3 inline-flex items-center gap-1.5 bg-white text-green-700 text-[13px] font-bold px-4 py-2 rounded-full"
-          >
-            Shop now <ArrowRight className="w-4 h-4" aria-hidden="true" />
-          </Link>
-          <BadgePercent
-            className="absolute right-5 top-1/2 -translate-y-1/2 w-14 h-14 text-white/25"
-            aria-hidden="true"
+            className="absolute right-0 top-0 bottom-0 w-[42%] object-cover"
           />
         </section>
 
@@ -67,7 +62,8 @@ export default async function Home() {
           aria-label="Search products"
         >
           <Search className="w-5 h-5 shrink-0" aria-hidden="true" />
-          <span className="text-sm">Search vegetables, fruits and more</span>
+          <span className="text-sm flex-1">Search vegetables, fruits and more</span>
+          <SlidersHorizontal className="w-5 h-5 shrink-0 text-slate-600" aria-hidden="true" />
         </Link>
 
         {/* Categories */}
