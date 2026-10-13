@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <main>
       {/* ============ MOBILE: grocery-app home ============ */}
-      <div className="sm:hidden px-4 pt-4 pb-8">
+      <div className="sm:hidden px-4 pt-4 pb-8 bg-white text-slate-900">
         <GreetingHeader />
 
         {/* Promo banner */}

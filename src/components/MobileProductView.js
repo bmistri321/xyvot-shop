@@ -66,7 +66,7 @@ export default function MobileProductView({ product, recommendations }) {
   const visibleDesc = expanded || !showToggle ? desc : `${desc.slice(0, 140)}…`;
 
   return (
-    <div className="pb-40">
+    <div className="pb-40 bg-white text-slate-900">
       {/* Top bar */}
       <div className="sticky top-14 z-30 bg-white/95 backdrop-blur px-4 h-12 flex items-center justify-between">
         <button
