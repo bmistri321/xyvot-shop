@@ -24,7 +24,13 @@ export default async function Home() {
   return (
     <main>
       {/* ============ MOBILE: grocery-app home ============ */}
-      <div className="sm:hidden px-4 pt-4 pb-8 bg-white text-slate-900">
+      <div className="sm:hidden relative px-4 pt-4 pb-8 bg-white text-slate-900">
+        {/* Top green gradient wash — fades into white behind the header */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-60 bg-linear-to-b from-[#c9f2da] via-[#e2f8ea]/60 to-transparent pointer-events-none"
+        />
+        <div className="relative">
         {/* DEMO DATA — remove before production. */}
         {demoMode && <DemoBadge />}
         <GreetingHeader />
@@ -32,7 +38,7 @@ export default async function Home() {
         {/* Promo banner */}
         <section
           aria-label="Current offer"
-          className="mt-4 relative overflow-hidden rounded-[24px] bg-gradient-to-br from-[#d9fae6] via-[#c8f2d9] to-[#a7e8c3] p-5"
+          className="mt-4 relative overflow-hidden rounded-[24px] bg-linear-to-br from-[#d9fae6] via-[#c8f2d9] to-[#a7e8c3] p-5"
         >
           <div className="relative max-w-[60%]">
             <p className="text-[20px] font-extrabold leading-snug text-[#0b3d2e]">
@@ -104,6 +110,7 @@ export default async function Home() {
             </div>
           )}
         </section>
+        </div>
       </div>
 
       {/* ============ DESKTOP: existing layout ============ */}

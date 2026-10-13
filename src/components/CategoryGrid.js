@@ -73,7 +73,7 @@ function ExpansionPanel({ category, onClose }) {
       id={`category-panel-${category}`}
       role="region"
       aria-label={`${category} preview`}
-      className="col-span-full rounded-[2rem] bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 p-6 sm:p-10 scroll-mt-24"
+      className="col-span-full rounded-[2rem] bg-linear-to-br from-purple-600 via-purple-700 to-purple-800 p-6 sm:p-10 scroll-mt-24"
     >
       <div className="flex items-center justify-between gap-4 mb-6">
         <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
