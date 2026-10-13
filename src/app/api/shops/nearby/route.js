@@ -2,13 +2,15 @@ import { NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 
 // GET /api/shops/nearby?lat=..&lng=..&city=..&limit=12
-// Returns active businesses sorted by proximity.
+// Returns active businesses sorted by proximity, limited to an 8 km radius.
 //
 // Distance strategy:
 //  - If the caller passes lat/lng AND a business has coordinates, we compute
-//    Haversine distance server-side and sort nearest-first.
+//    Haversine distance server-side, EXCLUDE businesses farther than 8 km
+//    (MAX_RADIUS_KM), and sort the survivors nearest-first.
 //  - Businesses without coordinates (or calls without lat/lng) fall back to
-//    city matching: same city first, then the rest. distance_km is null there.
+//    city matching: same city first, then the rest. distance_km is null there
+//    and no radius filter can be applied (there is no reference point).
 //
 // Column strategy:
 //  lat/lng/is_active/logo_url may not exist on every database yet, so we try
@@ -21,6 +23,9 @@ const MINIMAL_COLUMNS = "id, name, slug, status, is_archived, owner_phone";
 
 const DEFAULT_LIMIT = 12;
 const MAX_LIMIT = 50;
+
+// Only businesses within this radius of the caller count as "near".
+const MAX_RADIUS_KM = 8;
 
 /** Great-circle distance in km between two lat/lng points. */
 function haversineKm(lat1, lng1, lat2, lng2) {
@@ -103,15 +108,22 @@ export async function GET(req) {
     const active = orgs.filter(isActiveBusiness);
 
     // Attach distances where both sides have coordinates.
-    const withDistance = active.map((org) => {
-      const olat = parseFloat(org.lat);
-      const olng = parseFloat(org.lng);
-      const distanceKm =
-        hasCoords && Number.isFinite(olat) && Number.isFinite(olng)
-          ? haversineKm(lat, lng, olat, olng)
-          : null;
-      return { org, distanceKm };
-    });
+    // Radius rule: with a caller position, businesses beyond 8 km are
+    // excluded entirely. Businesses without coordinates keep distanceKm null
+    // (no reference point to measure from) and pass through unaffected.
+    const withDistance = active
+      .map((org) => {
+        const olat = parseFloat(org.lat);
+        const olng = parseFloat(org.lng);
+        const distanceKm =
+          hasCoords && Number.isFinite(olat) && Number.isFinite(olng)
+            ? haversineKm(lat, lng, olat, olng)
+            : null;
+        return { org, distanceKm };
+      })
+      .filter(
+        ({ distanceKm }) => distanceKm === null || distanceKm <= MAX_RADIUS_KM
+      );
 
     // Sort: nearest first (known distances), then city matches, then rest.
     // Businesses with unknown distance always sort after known ones.
