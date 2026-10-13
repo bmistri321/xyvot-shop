@@ -35,10 +35,10 @@ export default async function Home() {
         {demoMode && <DemoBadge />}
         <GreetingHeader />
 
-        {/* Promo banner */}
+        {/* Promo banner — fixed: text + image only, no gradient, no carousel */}
         <section
           aria-label="Current offer"
-          className="mt-4 relative overflow-hidden rounded-[24px] bg-linear-to-br from-[#d9fae6] via-[#c8f2d9] to-[#a7e8c3] p-5"
+          className="mt-4 relative overflow-hidden rounded-[24px] bg-[#f2fbf5] p-5"
         >
           <div className="relative max-w-[60%]">
             <p className="text-[20px] font-extrabold leading-snug text-[#0b3d2e]">
@@ -47,11 +47,6 @@ export default async function Home() {
             <p className="mt-1.5 text-[11px] font-medium text-[#5b7a6c]">
               Limited time offer
             </p>
-            <div className="mt-2.5 flex items-center gap-1.5" aria-hidden="true">
-              <span className="w-[18px] h-[6px] rounded-full bg-green-600" />
-              <span className="w-[6px] h-[6px] rounded-full bg-[#bcdcc9]" />
-              <span className="w-[6px] h-[6px] rounded-full bg-[#bcdcc9]" />
-            </div>
           </div>
           <img
             src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80"
