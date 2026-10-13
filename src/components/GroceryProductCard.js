@@ -15,7 +15,9 @@ export default function GroceryProductCard({ product }) {
   const mrp = Number(product.mrp ?? 0);
   const off = discountPercent(product);
   const title = product.title || product.name || "Product";
-  const unit = product.category || "";
+  // DEMO DATA: demo products carry an explicit `unit` ("/pack"); real
+  // products fall back to showing their category here as before.
+  const unit = product.unit || product.category || "";
 
   const inCart = items.find((i) => i.key === String(product.id));
   const qty = inCart?.qty ?? 0;

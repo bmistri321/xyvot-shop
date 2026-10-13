@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import { getProduct, getProducts, formatPrice, discountPercent } from "@/lib/supabase";
+// DEMO DATA — remove before production.
+import { getDemoProduct, getDemoProductsByCategory } from "@/data/demoProducts";
+import DemoBadge from "@/components/DemoBadge";
 import AddToCartButton from "./AddToCartButton";
 import ProductImage from "./ProductImage";
 import MobileProductView from "@/components/MobileProductView";
@@ -9,7 +12,8 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const product = await getProduct(id);
+  // DEMO DATA — remove before production.
+  const product = (await getProduct(id)) || getDemoProduct(id);
   if (!product) return { title: "Product not found" };
 
   const title = product.title || product.name || "Product";
@@ -33,7 +37,11 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductPage({ params }) {
   const { id } = await params;
-  const product = await getProduct(id);
+  // DEMO DATA — remove before production: fall back to the demo catalog
+  // when the real product fetch returns nothing.
+  const realProduct = await getProduct(id);
+  const product = realProduct || getDemoProduct(id);
+  const demoMode = !realProduct && !!product;
   if (!product) notFound();
 
   const title = product.title || product.name || "Product";
@@ -61,16 +69,23 @@ export default async function ProductPage({ params }) {
   };
 
   // Recommendations: same-category products, excluding self (mobile view)
+  // DEMO DATA — remove before production: demo fallback included.
   const recommendations = product.category
-    ? (await getProducts({ category: product.category, limit: 9 }))
-        .filter((p) => String(p.id) !== String(product.id))
-        .slice(0, 8)
+    ? demoMode
+      ? getDemoProductsByCategory(product.category)
+          .filter((p) => String(p.id) !== String(product.id))
+          .slice(0, 8)
+      : (await getProducts({ category: product.category, limit: 9 }))
+          .filter((p) => String(p.id) !== String(product.id))
+          .slice(0, 8)
     : [];
 
   return (
     <>
       {/* Mobile: grocery-app product details */}
       <div className="sm:hidden">
+        {/* DEMO DATA — remove before production. */}
+        {demoMode && <DemoBadge />}
         <MobileProductView product={product} recommendations={recommendations} />
       </div>
 

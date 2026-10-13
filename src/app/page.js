@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, Store, Search, BadgePercent } from "lucide-react";
 import { getProducts, getCategories, discountPercent } from "@/lib/supabase";
+// DEMO DATA — remove before production.
+import { DEMO_PRODUCTS, DEMO_CATEGORIES } from "@/data/demoProducts";
+import DemoBadge from "@/components/DemoBadge";
 import ProductCard from "@/components/ProductCard";
 import GroceryProductCard from "@/components/GroceryProductCard";
 import CategoryGrid from "@/components/CategoryGrid";
@@ -9,14 +12,21 @@ import GreetingHeader from "@/components/GreetingHeader";
 import ShopsNearYou from "@/components/shop/ShopsNearYou";
 
 export default async function Home() {
-  const products = await getProducts({ limit: 24 });
-  const categories = await getCategories();
+  const realProducts = await getProducts({ limit: 24 });
+  const realCategories = await getCategories();
+  // DEMO DATA — remove before production: fall back to placeholder
+  // catalog only when the real fetch returns nothing.
+  const demoMode = realProducts.length === 0;
+  const products = demoMode ? DEMO_PRODUCTS : realProducts;
+  const categories = demoMode ? DEMO_CATEGORIES : realCategories;
   const maxOff = products.reduce((m, p) => Math.max(m, discountPercent(p)), 0);
 
   return (
     <main>
       {/* ============ MOBILE: grocery-app home ============ */}
       <div className="sm:hidden px-4 pt-4 pb-8 bg-white text-slate-900">
+        {/* DEMO DATA — remove before production. */}
+        {demoMode && <DemoBadge />}
         <GreetingHeader />
 
         {/* Promo banner */}

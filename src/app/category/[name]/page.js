@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { getProducts } from "@/lib/supabase";
+// DEMO DATA — remove before production.
+import { getDemoProductsByCategory } from "@/data/demoProducts";
 import ProductCard from "@/components/ProductCard";
 import SubcategoryPills from "@/components/SubcategoryPills";
 
@@ -16,7 +18,14 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { name } = await params;
   const category = decodeURIComponent(name);
-  const products = await getProducts({ category, limit: 48 });
+  const realProducts = await getProducts({ category, limit: 48 });
+  // DEMO DATA — remove before production: fall back to the demo catalog
+  // only when the storefront has no real products at all (probe fetch).
+  const storefrontEmpty = (await getProducts({ limit: 1 })).length === 0;
+  const products =
+    storefrontEmpty && realProducts.length === 0
+      ? getDemoProductsByCategory(category)
+      : realProducts;
 
   if (products.length === 0) {
     // Don't 404 — show honest empty state (category may exist but be empty)

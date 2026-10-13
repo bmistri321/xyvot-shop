@@ -1,5 +1,7 @@
 import { SearchX } from "lucide-react";
 import { getProducts } from "@/lib/supabase";
+// DEMO DATA — remove before production.
+import { searchDemoProducts } from "@/data/demoProducts";
 import ProductCard from "@/components/ProductCard";
 
 export async function generateMetadata({ searchParams }) {
@@ -16,7 +18,16 @@ export async function generateMetadata({ searchParams }) {
 export default async function SearchPage({ searchParams }) {
   const { q } = await searchParams;
   const query = (q || "").trim();
-  const products = query ? await getProducts({ search: query, limit: 48 }) : [];
+  const realProducts = query ? await getProducts({ search: query, limit: 48 }) : [];
+  // DEMO DATA — remove before production: fall back to the demo catalog
+  // only when the storefront has no real products at all (probe fetch).
+  const storefrontEmpty = query
+    ? (await getProducts({ limit: 1 })).length === 0
+    : false;
+  const products =
+    storefrontEmpty && realProducts.length === 0
+      ? searchDemoProducts(query)
+      : realProducts;
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
