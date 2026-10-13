@@ -210,7 +210,7 @@ export default function CheckoutPage() {
             <div className="flex items-center gap-2">
               <span
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black ${
-                  i < step ? "bg-orange-600 text-white" : i === step ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-400"
+                  i < step ? "bg-green-600 text-white" : i === step ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-400"
                 }`}
               >
                 {i < step ? <Check className="w-4 h-4" aria-hidden="true" /> : i + 1}
@@ -231,11 +231,11 @@ export default function CheckoutPage() {
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   <div>
                     <label htmlFor="ck-name" className="block text-sm font-bold mb-2">Full name</label>
-                    <input id="ck-name" type="text" value={guestName} onChange={(e) => setGuestName(e.target.value)} placeholder="Your name" autoComplete="name" className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-orange-500 focus:outline-none" />
+                    <input id="ck-name" type="text" value={guestName} onChange={(e) => setGuestName(e.target.value)} placeholder="Your name" autoComplete="name" className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-green-500 focus:outline-none" />
                   </div>
                   <div>
                     <label htmlFor="ck-phone" className="block text-sm font-bold mb-2">Mobile number</label>
-                    <input id="ck-phone" type="tel" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit mobile" autoComplete="tel" inputMode="numeric" className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-orange-500 focus:outline-none" />
+                    <input id="ck-phone" type="tel" value={guestPhone} onChange={(e) => setGuestPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit mobile" autoComplete="tel" inputMode="numeric" className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-green-500 focus:outline-none" />
                   </div>
                 </div>
               )}
@@ -255,12 +255,12 @@ export default function CheckoutPage() {
                             onClick={() => { setSelectedAddressId(a.id); setInlineAddress(null); }}
                             aria-pressed={selectedAddressId === a.id && !inlineAddress}
                             className={`w-full text-left p-5 rounded-3xl border-2 transition-colors ${
-                              selectedAddressId === a.id && !inlineAddress ? "border-orange-600 bg-orange-50/50" : "border-slate-200 hover:border-slate-400"
+                              selectedAddressId === a.id && !inlineAddress ? "border-green-600 bg-green-50/50" : "border-slate-200 hover:border-slate-400"
                             }`}
                           >
                             <div className="flex items-center gap-2">
                               <span className="px-2.5 py-1 rounded-full bg-slate-100 text-xs font-bold">{a.label || "Home"}</span>
-                              {a.is_default && <span className="px-2.5 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold">Default</span>}
+                              {a.is_default && <span className="px-2.5 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold">Default</span>}
                             </div>
                             <p className="mt-2 font-bold text-sm">{a.name} • {a.phone}</p>
                             <p className="mt-1 text-sm text-slate-600">{formatAddress(a)}</p>
@@ -270,7 +270,7 @@ export default function CheckoutPage() {
                     </ul>
                   )}
                   <div className="flex gap-3 text-sm mb-4">
-                    <Link href="/account/addresses" className="inline-flex items-center gap-1 font-bold text-orange-700 hover:text-orange-800">Manage addresses <ArrowRight className="w-4 h-4" aria-hidden="true" /></Link>
+                    <Link href="/account/addresses" className="inline-flex items-center gap-1 font-bold text-green-700 hover:text-green-800">Manage addresses <ArrowRight className="w-4 h-4" aria-hidden="true" /></Link>
                   </div>
                 </>
               )}
@@ -287,14 +287,14 @@ export default function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => setShowNewAddress(true)}
-                  className="w-full py-4 rounded-3xl border-2 border-dashed border-slate-300 font-bold text-slate-600 hover:border-orange-500 hover:text-orange-700"
+                  className="w-full py-4 rounded-3xl border-2 border-dashed border-slate-300 font-bold text-slate-600 hover:border-green-500 hover:text-green-700"
                 >
                   + Add a new address
                 </button>
               )}
 
               {inlineAddress && !phone && (
-                <div className="mt-4 p-5 rounded-3xl border-2 border-orange-600 bg-orange-50/50">
+                <div className="mt-4 p-5 rounded-3xl border-2 border-green-600 bg-green-50/50">
                   <p className="font-bold text-sm">{inlineAddress.name} • {inlineAddress.phone}</p>
                   <p className="mt-1 text-sm text-slate-600">{formatAddress(inlineAddress)}</p>
                 </div>
@@ -311,7 +311,7 @@ export default function CheckoutPage() {
                   onClick={() => setPaymentMethod("razorpay")}
                   aria-pressed={paymentMethod === "razorpay"}
                   className={`w-full text-left p-5 rounded-3xl border-2 transition-colors ${
-                    paymentMethod === "razorpay" ? "border-orange-600 bg-orange-50/50" : "border-slate-200 hover:border-slate-400"
+                    paymentMethod === "razorpay" ? "border-green-600 bg-green-50/50" : "border-slate-200 hover:border-slate-400"
                   }`}
                 >
                   <p className="font-bold inline-flex items-center gap-2"><CreditCard className="w-5 h-5" aria-hidden="true" /> Pay online</p>
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
                   onClick={() => setPaymentMethod("cod")}
                   aria-pressed={paymentMethod === "cod"}
                   className={`w-full text-left p-5 rounded-3xl border-2 transition-colors ${
-                    paymentMethod === "cod" ? "border-orange-600 bg-orange-50/50" : "border-slate-200 hover:border-slate-400"
+                    paymentMethod === "cod" ? "border-green-600 bg-green-50/50" : "border-slate-200 hover:border-slate-400"
                   }`}
                 >
                   <p className="font-bold inline-flex items-center gap-2"><Banknote className="w-5 h-5" aria-hidden="true" /> Cash on Delivery</p>
@@ -343,7 +343,7 @@ export default function CheckoutPage() {
               <div className="p-5 rounded-3xl border-2 border-slate-200 mb-4">
                 <div className="flex justify-between items-center mb-2">
                   <h2 className="font-bold">Deliver to</h2>
-                  <button type="button" onClick={() => setStep(0)} className="text-sm font-bold text-orange-700">Change</button>
+                  <button type="button" onClick={() => setStep(0)} className="text-sm font-bold text-green-700">Change</button>
                 </div>
                 {selectedAddress ? (
                   <>
@@ -358,7 +358,7 @@ export default function CheckoutPage() {
               <div className="p-5 rounded-3xl border-2 border-slate-200 mb-6">
                 <div className="flex justify-between items-center">
                   <h2 className="font-bold">Payment</h2>
-                  <button type="button" onClick={() => setStep(1)} className="text-sm font-bold text-orange-700">Change</button>
+                  <button type="button" onClick={() => setStep(1)} className="text-sm font-bold text-green-700">Change</button>
                 </div>
                 <p className="mt-2 text-sm text-slate-600">
                   {paymentMethod === "razorpay" ? (
@@ -374,7 +374,7 @@ export default function CheckoutPage() {
                   type="button"
                   onClick={placeCodOrder}
                   disabled={placing}
-                  className="w-full py-4 rounded-full bg-orange-600 text-white font-bold text-lg hover:bg-orange-700 disabled:opacity-50 transition"
+                  className="w-full py-4 rounded-full bg-green-600 text-white font-bold text-lg hover:bg-green-700 disabled:opacity-50 transition"
                 >
                   {placing ? "Placing order…" : `Place order • ${formatPrice(total)}`}
                 </button>
@@ -399,7 +399,7 @@ export default function CheckoutPage() {
                   type="button"
                   onClick={next}
                   disabled={placing}
-                  className="w-full py-4 rounded-full bg-orange-600 text-white font-bold text-lg hover:bg-orange-700 disabled:opacity-50 transition"
+                  className="w-full py-4 rounded-full bg-green-600 text-white font-bold text-lg hover:bg-green-700 disabled:opacity-50 transition"
                 >
                   {placing ? "Preparing payment…" : "Continue to payment"}
                 </button>

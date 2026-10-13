@@ -46,7 +46,7 @@ export default function MobileTabBar() {
               <span className="relative">
                 <Icon className="w-6 h-6" strokeWidth={active ? 2.5 : 2} aria-hidden="true" />
                 {badge > 0 && (
-                  <span className="absolute -top-1.5 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-orange-600 text-white text-[10px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1.5 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-green-600 text-white text-[10px] font-bold flex items-center justify-center">
                     {badge > 99 ? "99+" : badge}
                   </span>
                 )}
@@ -55,7 +55,7 @@ export default function MobileTabBar() {
             </>
           );
           const cls = `flex flex-col items-center justify-center gap-0.5 min-h-[56px] transition-colors ${
-            active ? "text-orange-600" : "text-slate-500"
+            active ? "text-green-600" : "text-slate-500"
           }`;
           return onClick ? (
             <button key={key} type="button" onClick={onClick} className={cls} aria-label={`${label}, ${count} items`}>

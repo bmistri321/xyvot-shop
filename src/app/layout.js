@@ -17,7 +17,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#ea580c",
+  themeColor: "#16a34a",
 };
 
 export const metadata = {
@@ -76,7 +76,7 @@ export default function RootLayout({ children }) {
               <div className="flex flex-col sm:flex-row justify-between gap-8">
                 <div>
                   <p className="text-2xl font-black text-white">
-                    xyvot<span className="text-orange-600">.</span>
+                    xyvot<span className="text-green-600">.</span>
                   </p>
                   <p className="mt-3 text-sm max-w-xs">
                     Groceries and essentials delivered in 15 minutes from

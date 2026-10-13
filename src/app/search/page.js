@@ -37,7 +37,7 @@ export default async function SearchPage({ searchParams }) {
               placeholder="Search for groceries, vegetables, snacks…"
               aria-label="Search products"
               autoFocus
-              className="w-full px-5 py-3.5 rounded-full bg-slate-100 border-0 text-base focus:ring-2 focus:ring-orange-500 focus:bg-white transition"
+              className="w-full px-5 py-3.5 rounded-full bg-slate-100 border-0 text-base focus:ring-2 focus:ring-green-500 focus:bg-white transition"
             />
           </form>
           <p className="mt-6 text-center text-slate-500">

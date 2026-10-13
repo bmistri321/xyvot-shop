@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { getProduct, formatPrice, discountPercent } from "@/lib/supabase";
+import { getProduct, getProducts, formatPrice, discountPercent } from "@/lib/supabase";
 import AddToCartButton from "./AddToCartButton";
 import ProductImage from "./ProductImage";
+import MobileProductView from "@/components/MobileProductView";
 
 export const dynamic = "force-dynamic";
 
@@ -59,8 +60,22 @@ export default async function ProductPage({ params }) {
     },
   };
 
+  // Recommendations: same-category products, excluding self (mobile view)
+  const recommendations = product.category
+    ? (await getProducts({ category: product.category, limit: 9 }))
+        .filter((p) => String(p.id) !== String(product.id))
+        .slice(0, 8)
+    : [];
+
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <>
+      {/* Mobile: grocery-app product details */}
+      <div className="sm:hidden">
+        <MobileProductView product={product} recommendations={recommendations} />
+      </div>
+
+      {/* Desktop: existing layout */}
+      <main className="hidden sm:block max-w-7xl mx-auto px-4 sm:px-6 py-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -142,5 +157,6 @@ export default async function ProductPage({ params }) {
         </div>
       </div>
     </main>
+    </>
   );
 }

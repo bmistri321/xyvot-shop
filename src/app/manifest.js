@@ -11,7 +11,7 @@ export default function manifest() {
     display: "standalone",
     orientation: "portrait",
     background_color: "#ffffff",
-    theme_color: "#ea580c",
+    theme_color: "#16a34a",
     icons: [
       {
         src: "/icons/icon-192.png",

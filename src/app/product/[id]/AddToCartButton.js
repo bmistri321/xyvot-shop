@@ -56,7 +56,7 @@ export default function AddToCartButton({ product, inStock }) {
         className={`w-full py-4 rounded-full font-bold text-lg transition ${
           added
             ? "bg-emerald-600 text-white"
-            : "bg-orange-600 text-white hover:bg-orange-700"
+            : "bg-green-600 text-white hover:bg-green-700"
         }`}
       >
         {added ? (

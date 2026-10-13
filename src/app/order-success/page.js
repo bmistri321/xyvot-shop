@@ -26,7 +26,7 @@ export default async function OrderSuccessPage({ searchParams }) {
         {order && (
           <Link
             href={`/account/orders/${order}`}
-            className="px-8 py-3 rounded-full bg-orange-600 text-white font-bold hover:bg-orange-700"
+            className="px-8 py-3 rounded-full bg-green-600 text-white font-bold hover:bg-green-700"
           >
             Track order
           </Link>

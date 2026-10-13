@@ -1,57 +1,148 @@
 import Link from "next/link";
-import { ArrowRight, Store } from "lucide-react";
-import { getProducts } from "@/lib/supabase";
+import { ArrowRight, Store, Search, BadgePercent } from "lucide-react";
+import { getProducts, getCategories, discountPercent } from "@/lib/supabase";
 import ProductCard from "@/components/ProductCard";
+import GroceryProductCard from "@/components/GroceryProductCard";
 import CategoryGrid from "@/components/CategoryGrid";
+import CategoryCircleRow from "@/components/CategoryCircleRow";
+import GreetingHeader from "@/components/GreetingHeader";
 import ShopsNearYou from "@/components/shop/ShopsNearYou";
 
 export default async function Home() {
   const products = await getProducts({ limit: 24 });
+  const categories = await getCategories();
+  const maxOff = products.reduce((m, p) => Math.max(m, discountPercent(p)), 0);
 
   return (
     <main>
-      {/* Categories — expandable grid */}
-      <section
-        aria-label="Shop by category"
-        className="bg-[#F6FBD3] py-10 sm:py-14"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-8">
-            Groceries &amp; more, delivered in{" "}
-            <span className="text-orange-600">15 minutes</span>
-          </h1>
-          <CategoryGrid />
-        </div>
-      </section>
+      {/* ============ MOBILE: grocery-app home ============ */}
+      <div className="sm:hidden px-4 pt-4 pb-8">
+        <GreetingHeader />
 
-      {/* Shops near you — location-aware business discovery */}
-      <ShopsNearYou />
-
-      {/* Products */}
-      <section aria-label="Products" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-black">Fresh picks for you</h2>
-          <Link href="/search" className="inline-flex items-center gap-1 text-sm font-bold text-orange-700 hover:text-orange-800">
-            View all <ArrowRight className="w-4 h-4" aria-hidden="true" />
+        {/* Promo banner */}
+        <section
+          aria-label="Current offer"
+          className="mt-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-500 to-green-700 text-white p-5"
+        >
+          <div
+            className="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/10"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute right-10 -bottom-10 w-24 h-24 rounded-full bg-white/10"
+            aria-hidden="true"
+          />
+          <p className="relative text-lg font-extrabold leading-snug max-w-[70%]">
+            Enjoy The Special Offer Up To {maxOff > 0 ? `${maxOff}%` : "30%"}
+          </p>
+          <p className="relative mt-1 text-[12px] text-green-100">
+            Fresh picks from shops near you
+          </p>
+          <Link
+            href="/search"
+            className="relative mt-3 inline-flex items-center gap-1.5 bg-white text-green-700 text-[13px] font-bold px-4 py-2 rounded-full"
+          >
+            Shop now <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
-        </div>
+          <BadgePercent
+            className="absolute right-5 top-1/2 -translate-y-1/2 w-14 h-14 text-white/25"
+            aria-hidden="true"
+          />
+        </section>
 
-        {products.length === 0 ? (
-          <div className="text-center py-20">
-            <Store className="w-12 h-12 mx-auto mb-4 text-slate-300" aria-hidden="true" />
-            <p className="text-xl font-bold">No products yet</p>
-            <p className="mt-2 text-slate-500">
-              Shops are stocking their shelves — check back soon.
-            </p>
+        {/* Search */}
+        <Link
+          href="/search"
+          className="mt-4 flex items-center gap-2.5 bg-slate-100 rounded-full px-4 py-3 text-slate-500"
+          aria-label="Search products"
+        >
+          <Search className="w-5 h-5 shrink-0" aria-hidden="true" />
+          <span className="text-sm">Search vegetables, fruits and more</span>
+        </Link>
+
+        {/* Categories */}
+        <section aria-label="Categories" className="mt-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-[15px] font-extrabold text-slate-900">Categories</h2>
+            <Link
+              href="/search"
+              className="text-[12px] font-semibold text-green-700"
+            >
+              See all
+            </Link>
           </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
+          <CategoryCircleRow categories={categories} />
+        </section>
+
+        {/* Fresh products */}
+        <section aria-label="Fresh products" className="mt-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-[15px] font-extrabold text-slate-900">Fresh Products</h2>
+            <Link href="/search" className="text-[12px] font-semibold text-green-700">
+              See all
+            </Link>
           </div>
-        )}
-      </section>
+          {products.length === 0 ? (
+            <div className="text-center py-12 bg-white rounded-3xl border border-slate-100">
+              <Store className="w-10 h-10 mx-auto mb-3 text-slate-300" aria-hidden="true" />
+              <p className="font-bold">No products yet</p>
+              <p className="mt-1 text-sm text-slate-500 px-6">
+                Shops are stocking their shelves — check back soon.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-3">
+              {products.map((p) => (
+                <GroceryProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+
+      {/* ============ DESKTOP: existing layout ============ */}
+      <div className="hidden sm:block">
+        <section
+          aria-label="Shop by category"
+          className="bg-[#F6FBD3] py-10 sm:py-14"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-8">
+              Groceries &amp; more, delivered in{" "}
+              <span className="text-green-700">15 minutes</span>
+            </h1>
+            <CategoryGrid />
+          </div>
+        </section>
+
+        <section aria-label="Products" className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-black">Fresh picks for you</h2>
+            <Link href="/search" className="inline-flex items-center gap-1 text-sm font-bold text-green-700 hover:text-green-800">
+              View all <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+          </div>
+
+          {products.length === 0 ? (
+            <div className="text-center py-20">
+              <Store className="w-12 h-12 mx-auto mb-4 text-slate-300" aria-hidden="true" />
+              <p className="text-xl font-bold">No products yet</p>
+              <p className="mt-2 text-slate-500">
+                Shops are stocking their shelves — check back soon.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              {products.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+
+      {/* Shops near you — location-aware business discovery (all viewports) */}
+      <ShopsNearYou />
     </main>
   );
 }
