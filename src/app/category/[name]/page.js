@@ -3,6 +3,7 @@ import { getProducts } from "@/lib/supabase";
 // DEMO DATA — remove before production.
 import { getDemoProductsByCategory } from "@/data/demoProducts";
 import ProductCard from "@/components/ProductCard";
+import GroceryProductCard from "@/components/GroceryProductCard";
 import SubcategoryPills from "@/components/SubcategoryPills";
 
 export async function generateMetadata({ params }) {
@@ -41,7 +42,7 @@ export default async function CategoryPage({ params }) {
         </ol>
       </nav>
 
-      <h1 className="text-3xl font-black">{category}</h1>
+      <h1 className="text-2xl sm:text-3xl font-black">{category}</h1>
       <SubcategoryPills parent={category} />
 
       {products.length === 0 ? (
@@ -60,7 +61,14 @@ export default async function CategoryPage({ params }) {
           <p className="mt-2 text-sm text-slate-500">
             {products.length} {products.length === 1 ? "product" : "products"}
           </p>
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* Mobile: grocery card, 3-up — matches home */}
+          <div className="mt-6 grid grid-cols-3 gap-2 sm:hidden">
+            {products.map((p) => (
+              <GroceryProductCard key={p.id} product={p} />
+            ))}
+          </div>
+          {/* Desktop: classic card */}
+          <div className="mt-6 hidden sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

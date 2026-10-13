@@ -18,7 +18,7 @@ export default function DeliveryHeader() {
         </p>
         <Link
           href="/account"
-          className="mt-0.5 inline-flex items-center gap-1 text-[13px] text-slate-600 min-h-[32px] max-w-full"
+          className="mt-0.5 inline-flex items-center gap-1 text-[13px] text-slate-600 min-h-[40px] max-w-full py-1"
           aria-label="Set delivery location"
         >
           <MapPin
@@ -35,7 +35,7 @@ export default function DeliveryHeader() {
       <Link
         href="/account"
         aria-label="Account"
-        className="w-10 h-10 rounded-full bg-green-100 text-green-700 flex items-center justify-center shrink-0 active:scale-95 transition"
+        className="w-11 h-11 rounded-full bg-green-100 text-green-700 flex items-center justify-center shrink-0 active:scale-95 transition"
       >
         <User className="w-5 h-5" aria-hidden="true" />
       </Link>

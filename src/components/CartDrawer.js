@@ -116,7 +116,7 @@ export default function CartDrawer({ open, onClose }) {
                         />
                         <button
                           onClick={() => removeItem(item.key)}
-                          className="p-2 -mr-1 rounded-full text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+                          className="p-3 -mr-2 rounded-full text-slate-400 hover:text-red-600 hover:bg-red-50 transition flex items-center justify-center"
                           aria-label={`Remove ${item.title} from cart`}
                         >
                           <Trash2 className="w-4 h-4" aria-hidden="true" />
@@ -139,11 +139,11 @@ export default function CartDrawer({ open, onClose }) {
                     onChange={(e) => setCoupon(e.target.value)}
                     placeholder="Enter code"
                     aria-label="Coupon code"
-                    className="flex-1 min-w-0 rounded-full bg-white/15 placeholder:text-green-100 text-sm font-semibold px-4 py-2.5 outline-none focus:bg-white/25"
+                    className="flex-1 min-w-0 rounded-full bg-white/15 placeholder:text-green-100 text-sm font-semibold px-4 py-3 outline-none focus:bg-white/25"
                   />
                   <button
                     onClick={applyCoupon}
-                    className="px-5 py-2.5 rounded-full bg-white text-green-700 text-sm font-bold hover:bg-green-50 transition shrink-0"
+                    className="min-h-[44px] px-5 py-3 rounded-full bg-white text-green-700 text-sm font-bold hover:bg-green-50 transition shrink-0"
                   >
                     Apply
                   </button>

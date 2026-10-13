@@ -55,7 +55,7 @@ export default function GroceryProductCard({ product }) {
           onClick={() => setLiked((v) => !v)}
           aria-pressed={liked}
           aria-label={liked ? `Remove ${title} from wishlist` : `Add ${title} to wishlist`}
-          className="absolute top-2 right-2 z-10 p-1 rounded-full bg-white/80 backdrop-blur-sm shadow-sm active:scale-90 transition"
+          className="absolute top-2 right-2 z-10 min-w-[44px] min-h-[44px] p-2.5 rounded-full bg-white/80 backdrop-blur-sm shadow-sm active:scale-90 transition flex items-center justify-center"
         >
           <Heart
             className={`w-[18px] h-[18px] ${liked ? "fill-rose-500 text-rose-500" : "fill-slate-200 text-slate-400"}`}
@@ -69,13 +69,13 @@ export default function GroceryProductCard({ product }) {
             <button
               type="button"
               onClick={() => addItem(product)}
-              className="px-5 py-1.5 rounded-xl bg-white border-[1.5px] border-green-700 text-green-700 text-[13px] font-extrabold tracking-wide shadow-sm hover:bg-green-50 transition active:scale-95"
+              className="min-h-[44px] px-5 py-1.5 rounded-xl bg-white border-[1.5px] border-green-700 text-green-700 text-[13px] font-extrabold tracking-wide shadow-sm hover:bg-green-50 transition active:scale-95 flex items-center justify-center"
               aria-label={`Add ${title} to cart`}
             >
               ADD
             </button>
           ) : (
-            <div className="bg-white border-[1.5px] border-green-700 rounded-xl shadow-sm px-1 py-0.5">
+            <div className="min-h-[44px] bg-white border-[1.5px] border-green-700 rounded-xl shadow-sm px-1 py-0.5 flex items-center">
               <QuantityStepper
                 size="sm"
                 qty={qty}
@@ -97,21 +97,20 @@ export default function GroceryProductCard({ product }) {
 
       {/* Price / name */}
       <div className="px-3 pb-3 pt-1 flex-1 flex flex-col">
-        <div className="flex items-baseline gap-1.5 flex-wrap">
-          <span className="text-[15px] font-extrabold text-slate-900">
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[15px] font-extrabold text-slate-900 tabular-nums">
             {formatPrice(price)}
           </span>
           {mrp > price && (
-            <span className="text-[11px] text-slate-400 line-through">
+            <span className="text-[11px] text-slate-400 line-through tabular-nums">
               {formatPrice(mrp)}
             </span>
           )}
-          {off > 0 && (
-            <span className="text-[11px] font-semibold text-green-600">
-              {off}% off
-            </span>
-          )}
         </div>
+        {/* Discount line — always reserves space so cards in a row align */}
+        <p className="min-h-[16px] text-[11px] font-semibold text-green-600 leading-[16px]">
+          {off > 0 ? `${off}% off` : ""}
+        </p>
         <h3 className="mt-1 font-medium text-slate-900 text-[13px] leading-snug line-clamp-2">
           <Link
             href={`/product/${product.id}`}

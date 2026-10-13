@@ -81,7 +81,7 @@ export default async function Home() {
             </Link>
           </div>
           {products.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-3xl border border-slate-100">
+            <div className="text-center py-12 bg-white rounded-2xl border border-slate-100">
               <Store className="w-10 h-10 mx-auto mb-3 text-slate-300" aria-hidden="true" />
               <p className="font-bold">No products yet</p>
               <p className="mt-1 text-sm text-slate-500 px-6">
@@ -98,7 +98,7 @@ export default async function Home() {
         </section>
         {/* Popular Near You — horizontal product rail (Flipkart Quick pattern) */}
         {products.length > 0 && (
-          <section aria-label="Popular near you" className="mt-7">
+          <section aria-label="Popular near you" className="mt-6">
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-[15px] font-extrabold text-slate-900">
                 Popular Near You
@@ -172,8 +172,12 @@ export default async function Home() {
         </section>
       </div>
 
-      {/* Shops near you — location-aware business discovery (all viewports) */}
-      <ShopsNearYou />
+      {/* Shops near you — desktop only on home; mobile uses the
+          delivery header + Popular Near You rail (avoids duplicate
+          location prompts and keeps the mobile green theme clean) */}
+      <div className="hidden sm:block">
+        <ShopsNearYou />
+      </div>
     </main>
   );
 }

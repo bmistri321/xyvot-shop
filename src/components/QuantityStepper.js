@@ -4,9 +4,12 @@ import { Minus, Plus } from "lucide-react";
 
 // Circular minus/qty/plus stepper — grocery-app style.
 // size: "sm" (cards) | "md" (cart/details)
+// Compact stepper buttons are 40px — a deliberate trade-off: full 44px
+// would overwhelm the 3-up product cards. WCAG AA minimum is 24px;
+// 40px is generous while keeping the Blinkit-approved compact look.
 export default function QuantityStepper({ qty, onDecrement, onIncrement, size = "md", label = "quantity" }) {
   const btn =
-    size === "sm" ? "w-8 h-8" : "w-10 h-10";
+    size === "sm" ? "w-10 h-10" : "w-11 h-11";
   const icon = size === "sm" ? "w-4 h-4" : "w-5 h-5";
   return (
     <div

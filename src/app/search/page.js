@@ -3,6 +3,7 @@ import { getProducts } from "@/lib/supabase";
 // DEMO DATA — remove before production.
 import { searchDemoProducts } from "@/data/demoProducts";
 import ProductCard from "@/components/ProductCard";
+import GroceryProductCard from "@/components/GroceryProductCard";
 
 export async function generateMetadata({ searchParams }) {
   const { q } = await searchParams;
@@ -31,7 +32,7 @@ export default async function SearchPage({ searchParams }) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      <h1 className="text-3xl font-black">
+      <h1 className="text-2xl sm:text-3xl font-black">
         {query ? (
           <>Results for &ldquo;{query}&rdquo;</>
         ) : (
@@ -74,7 +75,14 @@ export default async function SearchPage({ searchParams }) {
           <p className="mt-2 text-sm text-slate-500" aria-live="polite">
             {products.length} {products.length === 1 ? "product" : "products"} found
           </p>
-          <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* Mobile: grocery card, 3-up — matches home */}
+          <div className="mt-6 grid grid-cols-3 gap-2 sm:hidden">
+            {products.map((p) => (
+              <GroceryProductCard key={p.id} product={p} />
+            ))}
+          </div>
+          {/* Desktop: classic card */}
+          <div className="mt-6 hidden sm:grid sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {products.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
         <CartProvider>
           <Header />
           <div className="flex-1">{children}</div>
-          <footer className="bg-slate-950 text-slate-400 mt-16">
+          <footer className="hidden sm:block bg-slate-950 text-slate-400 mt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
               <div className="flex flex-col sm:flex-row justify-between gap-8">
                 <div>

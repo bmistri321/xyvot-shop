@@ -68,10 +68,10 @@ export default function MobileProductView({ product, recommendations }) {
   return (
     <div className="pb-40 bg-white text-slate-900">
       {/* Top bar */}
-      <div className="sticky top-14 z-30 bg-white/95 backdrop-blur px-4 h-12 flex items-center justify-between">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur px-4 h-12 flex items-center justify-between">
         <button
           onClick={() => router.back()}
-          className="w-9 h-9 -ml-2 rounded-full hover:bg-slate-100 flex items-center justify-center"
+          className="w-11 h-11 -ml-2 rounded-full hover:bg-slate-100 flex items-center justify-center"
           aria-label="Go back"
         >
           <ArrowLeft className="w-5 h-5" aria-hidden="true" />
@@ -79,7 +79,7 @@ export default function MobileProductView({ product, recommendations }) {
         <h1 className="text-[15px] font-bold">Product Details</h1>
         <button
           onClick={share}
-          className="w-9 h-9 -mr-2 rounded-full hover:bg-slate-100 flex items-center justify-center"
+          className="w-11 h-11 -mr-2 rounded-full hover:bg-slate-100 flex items-center justify-center"
           aria-label="Share product"
         >
           {shared ? (
@@ -92,7 +92,7 @@ export default function MobileProductView({ product, recommendations }) {
 
       {/* Image */}
       <div className="px-4">
-        <div className="relative aspect-square rounded-3xl overflow-hidden bg-slate-50">
+        <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50">
           {product.image_url || product.image ? (
             <Image
               src={product.image_url || product.image}
@@ -135,7 +135,7 @@ export default function MobileProductView({ product, recommendations }) {
           <div className="inline-flex items-center gap-2.5" role="group" aria-label="Quantity">
             <button
               onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center active:scale-95 transition"
+              className="w-11 h-11 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center active:scale-95 transition"
               aria-label="Decrease quantity"
             >
               <Minus className="w-4 h-4" aria-hidden="true" />
@@ -143,7 +143,7 @@ export default function MobileProductView({ product, recommendations }) {
             <span className="w-6 text-center font-bold tabular-nums" aria-live="polite">{qty}</span>
             <button
               onClick={() => setQty((q) => q + 1)}
-              className="w-9 h-9 rounded-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center active:scale-95 transition shadow-sm"
+              className="w-11 h-11 rounded-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center active:scale-95 transition shadow-sm"
               aria-label="Increase quantity"
             >
               <Plus className="w-4 h-4" aria-hidden="true" />
