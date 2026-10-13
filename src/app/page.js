@@ -87,7 +87,7 @@ export default async function Home() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-3 gap-2">
               {products.map((p) => (
                 <GroceryProductCard key={p.id} product={p} />
               ))}

@@ -23,7 +23,7 @@ export default function GroceryProductCard({ product }) {
   const qty = inCart?.qty ?? 0;
 
   return (
-    <article className="relative bg-white rounded-3xl border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
+    <article className="relative bg-white rounded-2xl border border-slate-100 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
       <Link
         href={`/product/${product.id}`}
         className="relative aspect-square w-full bg-slate-50 overflow-hidden block"
