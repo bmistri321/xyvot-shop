@@ -19,14 +19,7 @@ export default function Header() {
 
   return (
     <>
-      {/* Mobile app bar — slim: the bottom tab bar covers search/cart/account */}
-      <header className="sm:hidden sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
-        <div className="px-4 h-14 flex items-center">
-          <Link href="/" className="text-xl font-black tracking-tight" aria-label="Xyvot shop home">
-            xyvot<span className="text-green-600">.</span>
-          </Link>
-        </div>
-      </header>
+      {/* Mobile: no top header bar — the app icon + splash screen carry the brand */}
 
       <header className="hidden sm:block sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
