@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @import "./shop-tokens.css";
 
+/* Hide all browser scrollbars store-wide — scrolling still works,
+   only the visual scrollbar chrome is removed. */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ / Edge Legacy */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera, Chromium Edge */
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
